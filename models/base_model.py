@@ -23,13 +23,24 @@ class BaseModel():
     @id - uniq id
     @created_at - time for instance creation
     """
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         """
-        initiate the base class
+        initiate the base class,
+        first checks values if passed as dict
+        else create with default values
         """
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
+        if kwargs:
+            for key, value in kwargs.items():
+                if key != "__class__":
+                    if key == "created_at" or key == "updated_at":
+                        newValue = datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%f')
+                        setattr(self, key, newValue)
+                    else:
+                        setattr(self, key, value)
+        else:
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
 
     def __str__(self):
         """ print string rep if object """

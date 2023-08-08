@@ -72,6 +72,7 @@ class TestBaseModel(unittest.TestCase):
         firstUpdatedValue = TestBaseModel.my_model.updated_at
         TestBaseModel.my_model.save()
         secondUpdatedValue = TestBaseModel.my_model.updated_at
+        self.assertTrue(type(TestBaseModel.my_model.id) == str)
         self.assertTrue(firstUpdatedValue != secondUpdatedValue)
 
     """
@@ -87,6 +88,18 @@ class TestBaseModel(unittest.TestCase):
                          TestBaseModel.my_model.created_at.isoformat())
         self.assertEqual(obj_dict['updated_at'],
                          TestBaseModel.my_model.updated_at.isoformat())
+
+    """
+    Test creating BaseModel from dictionary
+    """
+    def test_create_BaseModel_Dict(self):
+        my_dict = TestBaseModel.my_model.to_dict()
+        my_model = BaseModel(my_dict)
+        self.assertTrue(my_model.id)
+        self.assertIsInstance(my_model.created_at, datetime)
+        self.assertIsInstance(my_model.updated_at, datetime)
+        self.assertTrue(my_model.id !=
+                        TestBaseModel.my_model_2.id)
 
 
 """
