@@ -2,10 +2,13 @@
 """
 get datetime module from datetime
 get the unittest module
+get os use os.path module to use to check if file exist
+in teardown method to remove it
 get the BaseModel module
 """
 from datetime import datetime
 from models.base_model import BaseModel
+import os
 import unittest
 
 """
@@ -100,6 +103,13 @@ class TestBaseModel(unittest.TestCase):
         self.assertIsInstance(my_model.updated_at, datetime)
         self.assertTrue(my_model.id !=
                         TestBaseModel.my_model_2.id)
+
+    """
+    Set up teardown method
+    """
+    def tearDown(self):
+        if os.path.exists("file.json"):
+            os.remove("file.json")
 
 
 """
