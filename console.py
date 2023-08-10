@@ -5,7 +5,7 @@ get the cmd module
 """
 
 import cmd
-
+from models.base_model import BaseModel
 
 """
 class HBNBCommand console
@@ -29,6 +29,28 @@ class HBNBCommand(cmd.Cmd):
         """ empty line should do nothing """
         pass
 
+    def do_create(self, line):
+        """
+        Creates a new instance of BaseModel and saves it to file.JSON
+        prints the instance id
+        command is:-> create <className>
+
+        if <className> not provided
+        prints: ** class name missing **
+
+        if <className> is wrong 
+        prints: ** class doesn't exist **
+        """
+        classes = ['BaseModel', 'FileStorage']
+        if not line:
+            print("** class name missing **")
+        elif line not in classes:
+            print("** class doesn't exist **")
+        else:
+            if line == "BaseModel":
+                my_model = BaseModel()
+                my_model.save()
+                print(my_model.id)
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
