@@ -39,7 +39,7 @@ class HBNBCommand(cmd.Cmd):
         if <className> not provided
         prints: ** class name missing **
 
-        if <className> is wrong 
+        if <className> is wrong
         prints: ** class doesn't exist **
         """
         className = self.parseline(line)[0]
@@ -55,8 +55,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_show(self, line):
         """
-        show retrives an instance of <className> 
-        prints the instance 
+        show retrives an instance of <className>
+        prints the instance
         command is:-> show <className> <instanceId>
 
         if <className> not provided
@@ -64,8 +64,7 @@ class HBNBCommand(cmd.Cmd):
 
         if <className> is wrong
         prints: ** class doesn't exist **
-        
-        
+
         if <instanceId> is wrong
         prints: ** no instance found **
         """
@@ -88,7 +87,7 @@ class HBNBCommand(cmd.Cmd):
     def do_destroy(self, line):
         """
         destroy destroys an instance of <className> and
-        save changes to json file 
+        save changes to json file
         command is:-> destroy <className> <instanceId>
 
         if <className> not provided
@@ -96,8 +95,7 @@ class HBNBCommand(cmd.Cmd):
 
         if <className> is wrong
         prints: ** class doesn't exist **
-        
-        
+
         if <instanceId> is wrong
         prints: ** no instance found **
         """
