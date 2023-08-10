@@ -5,7 +5,7 @@ get the cmd module
 """
 
 import cmd
-from models.base_model import BaseModel
+import models
 
 """
 class HBNBCommand console
@@ -16,6 +16,7 @@ class HBNBCommand(cmd.Cmd):
 
     """ prompt to be shown when the console starts """
     prompt = '(hbnb) '
+    classes = ['BaseModel', 'FileStorage']
 
     def do_EOF(self, line):
         """ function to exit from the console """
@@ -31,7 +32,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, line):
         """
-        Creates a new instance of BaseModel and saves it to file.JSON
+        Creates a new instance of <className> and saves it to file.JSON
         prints the instance id
         command is:-> create <className>
 
@@ -41,16 +42,49 @@ class HBNBCommand(cmd.Cmd):
         if <className> is wrong 
         prints: ** class doesn't exist **
         """
-        classes = ['BaseModel', 'FileStorage']
-        if not line:
+        className = self.parseline(line)[0]
+        if not className:
             print("** class name missing **")
-        elif line not in classes:
+        elif className not in HBNBCommand.classes:
             print("** class doesn't exist **")
         else:
             if line == "BaseModel":
-                my_model = BaseModel()
+                my_model = models.base_model.BaseModel()
                 my_model.save()
                 print(my_model.id)
+
+    def do_show(self, line):
+        """
+        show retrives an instance of <className> 
+        prints the instance 
+        command is:-> show <className> <instanceId>
+
+        if <className> not provided
+        prints: ** class name missing **
+
+        if <className> is wrong
+        prints: ** class doesn't exist **
+        
+        
+        if <instanceId> is wrong
+        prints: ** no instance found **
+        """
+        className = self.parseline(line)[0]
+        classId = self.parseline(line)[1]
+        if not className:
+            print("** class name missing **")
+        elif className not in HBNBCommand.classes:
+            print("** class doesn't exist **")
+        else:
+            if not classId:
+                print("** instance id missing **")
+            else:
+                inst_data = models.storage.all().get(className + '.' + classId)
+                if inst_data is None:
+                    print('** no instance found **')
+                else:
+                    print(inst_data)
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
