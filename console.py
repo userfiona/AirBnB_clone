@@ -116,6 +116,28 @@ class HBNBCommand(cmd.Cmd):
                     del (models.storage.all())[className + '.' + classId]
                     models.storage.save()
 
+    def do_all(self, line):
+        """
+        all command prints all string rep of all instances bases on
+        <className> provided or only all command still prints
+        if class does not exists ptints(** class doesn't exist **)
+        """
+        className = self.parseline(line)[0]
+        if not className:
+            my_obj_list = []
+            my_obj = models.storage.all()
+            for key, value in my_obj.items():
+                my_obj_list.append(str(value))
+            print(my_obj_list)
+        elif className not in HBNBCommand.classes:
+            print("** class doesn't exist **")
+        else:
+            my_obj_list = []
+            my_obj = models.storage.all()
+            for key, value in my_obj.items():
+                my_obj_list.append(str(value))
+            print(my_obj_list)
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
