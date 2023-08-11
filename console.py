@@ -6,6 +6,7 @@ get the cmd module
 
 import cmd
 import models
+from datetime import datetime
 
 """
 class HBNBCommand console
@@ -138,6 +139,18 @@ class HBNBCommand(cmd.Cmd):
                 my_obj_list.append(str(value))
             print(my_obj_list)
 
+    def convertToDigit(self, value):
+        """
+        convet string '4' to  digit 4
+        """
+        if value.isdigit():
+            return (int(value))
+        elif value.replace('.', '', 1).isdigit():
+            return (float(value))
+        #elif isinstance(value, str): 
+            #return (value[1:-1])
+        return value
+
     def do_update(self, line):
         """
         update command updates an instance based on the className and id
@@ -181,7 +194,12 @@ class HBNBCommand(cmd.Cmd):
                             print("** value missing **")
                             # add key,value if missing
                         else:
-                            setattr(inst_data, classAtt, classAttValue)
+                            # check if value is digit passed as string
+                            # convert to int or float to
+                            newClassAttValue = self.convertToDigit(classAttValue)
+                            setattr(inst_data, classAtt, newClassAttValue)
+                            #update the updated_at value
+                            setattr(inst_data, 'updated_at', datetime.now())
                             # save changes
                             models.storage.save()
                     else:
@@ -190,8 +208,14 @@ class HBNBCommand(cmd.Cmd):
                         if str(classAtt) in notAllowedUpdate:
                             print(f"{classAtt} Not allowed to be updated")
                         else:
-                            setattr(inst_data, classAtt, classAttValue)
+                            newClassAttValue = self.convertToDigit(classAttValue)
+                            setattr(inst_data, classAtt, newClassAttValue)
+                            #update the updated_at value
+                            setattr(inst_data, 'updated_at', datetime.now())
                             # save changes
                             models.storage.save()
+
+
+
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
