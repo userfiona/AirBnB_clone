@@ -1,12 +1,18 @@
 #!/usr/bin/python3
-"""user class, subclass of BaseModel
+"""
+get the baseModel for inheriting from
+get json for serialization and deserialozation
 """
 from models.base_model import BaseModel
 import json
 
 
 class User(BaseModel):
-    '''subclass of BaseModel class'''
+    """
+    User class that inherits from
+    BaseModel class
+    declare public instance of the class
+    """
 
     email = ""
     password = ""
@@ -14,11 +20,15 @@ class User(BaseModel):
     last_name = ""
 
     def __init__(self, *args, **kwargs):
-        '''constructor'''
+        """
+        initiate the class using super class
+        """
         super().__init__(*args, **kwargs)
 
     def to_dict(self):
-        '''return dictionary representation of User'''
+        """
+        return dictionary representation of User
+        """
         user_dict = super().to_dict()
         user_dict['email'] = self.email
         user_dict['password'] = self.password
@@ -28,5 +38,7 @@ class User(BaseModel):
 
     @classmethod
     def from_dict(cls, data_dict):
-        '''create User object from dictionary'''
+        """
+        create User object from dictionary
+        """
         return cls(**data_dict)
