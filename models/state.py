@@ -27,4 +27,4 @@ class State(BaseModel):
     @classmethod
     def from_dict(cls, data_dict):
         """Create State object from dictionary."""
-        return cls(**data_dict)`
+        return cls(**data_dict)
