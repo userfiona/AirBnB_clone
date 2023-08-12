@@ -16,7 +16,6 @@ from models.user import User
 from os import path
 
 
-
 class FileStorage():
     """
     file storage class
