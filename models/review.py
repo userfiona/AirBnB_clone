@@ -1,13 +1,15 @@
 #!/usr/bin/python3
 
-"""Defines the Review class."""
+"""
+get BaseModel. Review class inherits from BaseModel
+"""
 
 from models.base_model import BaseModel
 
 
 class Review(BaseModel):
-    """Represent a review.
-
+    """
+    Represent a review.
     Attributes:
         place_id (str): The Place id.
         user_id (str): The User id.
@@ -19,11 +21,15 @@ class Review(BaseModel):
     text = ""
 
     def __init__(self, *args, **kwargs):
-        """Initialize Review instance."""
+        """
+        Initialize Review instance
+        """
         super().__init__(*args, **kwargs)
 
     def to_dict(self):
-        """Return dictionary representation of Review."""
+        """
+        Return dictionary representation of Review
+        """
         review_dict = super().to_dict()
         review_dict['place_id'] = self.place_id
         review_dict['user_id'] = self.user_id
@@ -32,5 +38,7 @@ class Review(BaseModel):
 
     @classmethod
     def from_dict(cls, data_dict):
-        """Create Review object from dictionary."""
+        """
+        Create Review object from dictionary
+        """
         return cls(**data_dict)

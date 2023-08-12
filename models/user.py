@@ -1,10 +1,9 @@
 #!/usr/bin/python3
+
 """
-get the baseModel for inheriting from
-get json for serialization and deserialozation
+get the BaseModel. User inherit from BaseModel
 """
 from models.base_model import BaseModel
-import json
 
 
 class User(BaseModel):
