@@ -6,25 +6,30 @@ get path module to check for files existance
 """
 
 import json
+from models.amenity import Amenity
+from models.base_model import BaseModel
+from models.city import City
+from models.place import Place
+from models.review import Review
+from models.state import State
+from models.user import User
 from os import path
 
-"""
-file storage class
-adds persistance storage feature to the project
-saves data using json format
-"""
 
 
 class FileStorage():
-
     """
-    initiate the class
+    file storage class
+    adds persistance storage feature to the project
+    saves data using json format
     """
     __file_path = 'file.json'
     __objects = {}
 
     def all(self):
-        """ returns the dictionary __objects """
+        """ gets the __objects and
+        returns the dictionary __objects
+        """
         return self.__objects
 
     def new(self, obj):
