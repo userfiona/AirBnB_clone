@@ -2,11 +2,15 @@
 
 """
 get the cmd module
+get datetime module
+get shlex module to split the arguments in a way that
+    handles double-quoted values correctly
 """
 
 import cmd
 import models
 from datetime import datetime
+import shlex
 
 """
 class HBNBCommand console
@@ -46,8 +50,10 @@ class HBNBCommand(cmd.Cmd):
         className = self.parseline(line)[0]
         if not className:
             print("** class name missing **")
+            return
         elif className not in HBNBCommand.classes:
             print("** class doesn't exist **")
+            return
         else:
             if line == "BaseModel":
                 my_model = models.base_model.BaseModel()
@@ -73,15 +79,20 @@ class HBNBCommand(cmd.Cmd):
         classId = self.parseline(line)[1]
         if not className:
             print("** class name missing **")
+            return
         elif className not in HBNBCommand.classes:
             print("** class doesn't exist **")
+            return
         else:
             if not classId:
                 print("** instance id missing **")
+                return
             else:
-                inst_data = models.storage.all().get(className + '.' + classId)
+                inst_key = f"{className}.{classId}"
+                inst_data = models.storage.all().get(inst_key)
                 if inst_data is None:
                     print('** no instance found **')
+                    return
                 else:
                     print(inst_data)
 
@@ -104,17 +115,22 @@ class HBNBCommand(cmd.Cmd):
         classId = self.parseline(line)[1]
         if not className:
             print("** class name missing **")
+            return
         elif className not in HBNBCommand.classes:
             print("** class doesn't exist **")
+            return
         else:
             if not classId:
                 print("** instance id missing **")
+                return
             else:
-                inst_data = models.storage.all().get(className + '.' + classId)
+                inst_key = f"{className}.{classId}"
+                inst_data = models.storage.all().get(inst_key)
                 if inst_data is None:
                     print('** no instance found **')
+                    return
                 else:
-                    del (models.storage.all())[className + '.' + classId]
+                    del (models.storage.all())[inst_key]
                     models.storage.save()
 
     def do_all(self, line):
@@ -124,32 +140,21 @@ class HBNBCommand(cmd.Cmd):
         if class does not exists ptints(** class doesn't exist **)
         """
         className = self.parseline(line)[0]
-        if not className:
-            my_obj_list = []
-            my_obj = models.storage.all()
-            for key, value in my_obj.items():
-                my_obj_list.append(str(value))
-            print(my_obj_list)
-        elif className not in HBNBCommand.classes:
+        if className and className not in HBNBCommand.classes:
             print("** class doesn't exist **")
+            return
         else:
-            my_obj_list = []
-            my_obj = models.storage.all()
-            for key, value in my_obj.items():
-                my_obj_list.append(str(value))
-            print(my_obj_list)
-
-    def convertToDigit(self, value):
-        """
-        convet string '4' to  digit 4
-        """
-        if value.isdigit():
-            return (int(value))
-        elif value.replace('.', '', 1).isdigit():
-            return (float(value))
-        #elif isinstance(value, str): 
-            #return (value[1:-1])
-        return value
+            # select all instance
+            instances = models.storage.all()
+        if className:
+            # get all instance of same className
+            filtered_instances = {key: instance for key, instance
+                                  in instances.items() if className in key}
+        else:
+            # get all the instaces that exist
+            filtered_instances = instances
+        # print found instances as a list
+        print([str(instance) for instance in filtered_instances.values()])
 
     def do_update(self, line):
         """
@@ -157,64 +162,44 @@ class HBNBCommand(cmd.Cmd):
         by adding or updating atribute then save changes into a json file.
 
         Usage: update <class name> <id> <attribute name> "<attribute value>"
-        """
-        linelist = line.split(" ")
-        className = None
-        classId = None
-        classAtt = None
-        classAttValue = None
-        linelength = len(linelist)
-        if linelength > 0:
-            className = linelist[0]
-        if linelength > 1:
-            classId = linelist[1]
-        if linelength > 2:
-            classAtt = linelist[2]
-        if linelength > 3:
-            classAttValue = linelist[3]
-        if not className:
+        Updates an instance based on the class name and id"""
+        args = line.split()
+        if not args:
             print("** class name missing **")
-        elif className not in HBNBCommand.classes:
+            return
+        class_name = args[0]
+        if class_name not in HBNBCommand.classes:
             print("** class doesn't exist **")
-        elif not classId:
-            print("** instance id missing **")
-        else:
-            inst_data = models.storage.all().get(className + '.' + classId)
-            if not inst_data:
-                print("** no instance found **")
-            else:
-                if not classAtt:
-                    print("** attribute name missing **")
-                else:
-                    my_dict = inst_data.to_dict()
-                    try:
-                        attValue = my_dict[classAtt]
-                    except KeyError:
-                        if not classAttValue:
-                            print("** value missing **")
-                            # add key,value if missing
-                        else:
-                            # check if value is digit passed as string
-                            # convert to int or float to
-                            newClassAttValue = self.convertToDigit(classAttValue)
-                            setattr(inst_data, classAtt, newClassAttValue)
-                            #update the updated_at value
-                            setattr(inst_data, 'updated_at', datetime.now())
-                            # save changes
-                            models.storage.save()
-                    else:
-                        # update if exist except ones in notAllowedUpdate list
-                        notAllowedUpdate = ["id", "created_at", "updated_at"]
-                        if str(classAtt) in notAllowedUpdate:
-                            print(f"{classAtt} Not allowed to be updated")
-                        else:
-                            newClassAttValue = self.convertToDigit(classAttValue)
-                            setattr(inst_data, classAtt, newClassAttValue)
-                            #update the updated_at value
-                            setattr(inst_data, 'updated_at', datetime.now())
-                            # save changes
-                            models.storage.save()
+            return
 
+        if len(args) < 2:
+            print("** instance id missing **")
+            return
+
+        instances = models.storage.all()
+        instance_key = "{}.{}".format(class_name, args[1])
+        if instance_key not in instances:
+            print("** no instance found **")
+            return
+
+        if len(args) < 3:
+            print("** attribute name missing **")
+            return
+
+        if len(args) < 4:
+            print("** value missing **")
+            return
+
+        attribute_name = args[2]
+        attribute_value = args[3]
+
+        # Handle attribute values enclosed in double quotes
+        if attribute_value.startswith('"') and attribute_value.endswith('"'):
+            attribute_value = attribute_value[1:-1]
+
+        instance = instances[instance_key]
+        setattr(instance, attribute_name, attribute_value)
+        instance.save()
 
 
 if __name__ == '__main__':
