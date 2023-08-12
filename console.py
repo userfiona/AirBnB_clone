@@ -3,6 +3,7 @@
 """
 get the cmd module
 get datetime module
+get the BaseModel
 get shlex module to split the arguments in a way that
     handles double-quoted values correctly
 """
@@ -22,6 +23,14 @@ import sys
 
 """
 class HBNBCommand console
+
+The console is used to manupulate data: that is:
+
+open console ./console
+
+create -> use comand create view -> use comand show view all -> use comand all update -> use comand update delete -> use comand destroy
+
+exit -> use comand quit
 """
 
 
@@ -29,7 +38,7 @@ class HBNBCommand(cmd.Cmd):
 
     """ prompt to be shown when the console starts """
     prompt = '(hbnb) '
-    classes = ['BaseModel', 'User']
+    classes = ['BaseModel', 'User', 'State', 'City', 'Amenity', 'Place', 'Review']
 
     def do_EOF(self, line):
         """ function to exit from the console """
