@@ -11,6 +11,7 @@ import cmd
 import models
 from datetime import datetime
 import shlex
+import sys
 
 """
 class HBNBCommand console
@@ -204,3 +205,8 @@ class HBNBCommand(cmd.Cmd):
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
+    if not sys.stdin.isatty():
+        for line in sys.stdin:
+            HBNBCommand.onecmd(line.strip())
+    else:
+        HBNBCommand().cmdloop()
