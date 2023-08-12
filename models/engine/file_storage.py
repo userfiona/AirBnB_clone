@@ -2,6 +2,7 @@
 
 """
 get json model
+get path module to check for files existance
 """
 
 import json
@@ -9,6 +10,8 @@ from os import path
 
 """
 file storage class
+adds persistance storage feature to the project
+saves data using json format
 """
 
 
@@ -20,25 +23,22 @@ class FileStorage():
     __file_path = 'file.json'
     __objects = {}
 
-    """
-    returns the dictionary __objects
-    """
     def all(self):
+        """ returns the dictionary __objects """
         return self.__objects
 
-    """
-    sets in __objects the obj with
-    key <obj class name>.id
-    """
     def new(self, obj):
+        """ sets in __objects the obj with
+            key <obj class name>.id
+        """
         key = f"{obj.__class__.__name__}.{obj.id}"
         self.__objects[key] = obj
 
-    """
-    Serializes __objects to the
-    JSON file (path: __file_path)
-    """
     def save(self):
+        """
+        Serializes __objects to the
+        JSON file (path: __file_path)
+        """
         my_dict = {}
         """Loop and convert object to dict"""
         for key, obj in self.__objects.items():
@@ -47,12 +47,12 @@ class FileStorage():
         with open(self.__file_path, mode='w', encoding='UTF-8') as my_file:
             json.dump(my_dict, my_file)
 
-    """
-    Deserializes the JSON file to
-    __objects only if the JSON file (__file_path) existis
-    Otherwise do nothing.
-    """
     def reload(self):
+        """
+        Deserializes the JSON file to
+        __objects only if the JSON file (__file_path) existis
+        Otherwise do nothing.
+        """
         if path.exists(self.__file_path):
             """ open the file and read the data """
             with open(self.__file_path, mode='r', encoding='UTF-8') as my_file:
