@@ -9,6 +9,13 @@ get shlex module to split the arguments in a way that
 
 import cmd
 import models
+from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 from datetime import datetime
 import shlex
 import sys
@@ -22,7 +29,7 @@ class HBNBCommand(cmd.Cmd):
 
     """ prompt to be shown when the console starts """
     prompt = '(hbnb) '
-    classes = ['BaseModel', 'FileStorage']
+    classes = ['BaseModel', 'User']
 
     def do_EOF(self, line):
         """ function to exit from the console """
@@ -56,10 +63,9 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
         else:
-            if line == "BaseModel":
-                my_model = models.base_model.BaseModel()
-                my_model.save()
-                print(my_model.id)
+            my_model = eval(className)()
+            my_model.save()
+            print(my_model.id)
 
     def do_show(self, line):
         """

@@ -58,4 +58,3 @@ class Place(BaseModel):
     def from_dict(cls, data_dict):
         """Create Place object from dictionary."""
         return cls(**data_dict)
-
