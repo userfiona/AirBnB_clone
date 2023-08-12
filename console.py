@@ -24,11 +24,11 @@ import sys
 """
 class HBNBCommand console
 
-The console is used to manupulate data: that is:
-
-open console ./console
-
-create -> use comand create view -> use comand show view all -> use comand all update -> use comand update delete -> use comand destroy
+create -> use comand create (<className>)
+view -> use comand show (<className> <instanceId>)
+view all -> use comand all
+update -> use comand update (<className> <instanceId> <attrName> <attrValue>)
+delete -> use comand destroy (<className> <instanceId>)
 
 exit -> use comand quit
 """
@@ -38,7 +38,8 @@ class HBNBCommand(cmd.Cmd):
 
     """ prompt to be shown when the console starts """
     prompt = '(hbnb) '
-    classes = ['BaseModel', 'User', 'State', 'City', 'Amenity', 'Place', 'Review']
+    classes = ['BaseModel', 'User', 'State', 'City',
+               'Amenity', 'Place', 'Review']
 
     def do_EOF(self, line):
         """ function to exit from the console """
