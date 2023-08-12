@@ -16,6 +16,7 @@ import json
 class TestFileStorage(unittest.TestCase):
     """
     class to test the FileStorage model
+    all the methods
     """
 
     def setUp(self):
