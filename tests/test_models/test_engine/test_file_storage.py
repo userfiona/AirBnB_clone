@@ -59,7 +59,7 @@ class TestFileStorage(unittest.TestCase):
                                       mode='w', encoding='UTF-8')
             mock_dump.assert_called_once()
 
-    def test_reload_existing_file(self):
+    def test_reload(self):
         """
         test reload method
         for an existing file
