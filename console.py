@@ -20,6 +20,7 @@ from models.review import Review
 from datetime import datetime
 import shlex
 import sys
+import re
 
 """
 class HBNBCommand console
@@ -50,7 +51,10 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def emptyline(self):
-        """ empty line should do nothing """
+        """
+        empty line should do nothing
+        Dont execute the previous command when line is empty
+        """
         pass
 
     def do_create(self, line):
@@ -217,6 +221,43 @@ class HBNBCommand(cmd.Cmd):
         instance = instances[instance_key]
         setattr(instance, attribute_name, attribute_value)
         instance.save()
+
+    def get_objects(self, value):
+        """
+        Retrieves instances by class name
+        """
+        if value:
+            instances = models.storage.all()
+            # get all instance of same className
+            filtered_instances = {key: instance for key, instance
+                                  in instances.items() if value in key}
+            return [str(instance) for instance in filtered_instances.values()]
+
+    def default(self, line):
+        """
+        When the command prefix is not recognized, this method
+        looks for whether the command entered has the syntax:
+        "<class name>.<method name>" or not,
+        and links it to the corresponding method in case the
+        class exists and the method belongs to the class.
+
+        """
+        if '.' in line:
+            splitted = re.split(r'\.|\(|\)', line)
+            class_name = splitted[0]
+            method_name = splitted[1]
+
+            if class_name in HBNBCommand.classes:
+                if method_name == 'all':
+                    print(self.get_objects(class_name))
+                elif method_name == 'count':
+                    print(len(self.get_objects(class_name)))
+                elif method_name == 'show':
+                    class_id = splitted[2][1:-1]
+                    self.do_show(class_name + ' ' + class_id)
+                elif method_name == 'destroy':
+                    class_id = splitted[2][1:-1]
+                    self.do_destroy(class_name + ' ' + class_id)
 
 
 if __name__ == '__main__':
