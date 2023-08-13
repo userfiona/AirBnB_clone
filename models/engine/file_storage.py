@@ -3,6 +3,9 @@
 """
 get json model
 get path module to check for files existance
+get all the module super class BaseModel
+get the rest of the module class. Amenity,City,
+Place,Review,State,User
 """
 
 import json
@@ -26,14 +29,16 @@ class FileStorage():
     __objects = {}
 
     def all(self):
-        """ gets the __objects and
+        """
+        gets the __objects and
         returns the dictionary __objects
         """
         return self.__objects
 
     def new(self, obj):
-        """ sets in __objects the obj with
-            key <obj class name>.id
+        """
+        sets in __objects the obj with
+        key <obj class name>.id
         """
         key = f"{obj.__class__.__name__}.{obj.id}"
         self.__objects[key] = obj
@@ -47,7 +52,10 @@ class FileStorage():
         """Loop and convert object to dict"""
         for key, obj in self.__objects.items():
             my_dict[key] = obj.to_dict()
-        """ open file in file path __file_path and save the dict """
+        """
+        open file in file path __file_path
+        and save the dict
+        """
         with open(self.__file_path, mode='w', encoding='UTF-8') as my_file:
             json.dump(my_dict, my_file)
 
