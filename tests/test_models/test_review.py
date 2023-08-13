@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #!/usr/bin/python3
 """
     test reviews
@@ -8,45 +9,64 @@ from models.review import Review
 from models.place import Place
 from models.user import User
 
-
-class TestReview(unittest.TestCase):
-    """
-    Test case for Review class
+    Test cases for the Review class.
     """
 
-    @classmethod
-    def setUpClass(cls):
+    def setUp(self):
         """
-        Setup
+        Set up a Review instance for testing.
         """
-        cls.dummy_review = Review()
-        cls.dummy_review.text = "test"
-        cls.dummy_review.user_id = User().id
-        cls.dummy_review.place_id = Place().id
+        self.review = Review()
 
-    @classmethod
-    def tearDownClass(cls):
+    def test_review_inherits_base_model(self):
         """
-        Teardown
+        Test if Review class inherits from BaseModel.
         """
-        del cls.dummy_review
+        self.assertIsInstance(self.review, Review)
+        self.assertIsInstance(self.review, BaseModel)
 
-    def test_inheritance(self):
+    def test_review_attributes(self):
         """
-        Test proper inheritance
+        Test if Review instance has required attributes.
         """
-        self.assertIsInstance(self.dummy_review, BaseModel)
-        self.assertTrue(hasattr(self.dummy_review, "id"))
-        self.assertTrue(hasattr(self.dummy_review, "created_at"))
-        self.assertTrue(hasattr(self.dummy_review, "updated_at"))
+        self.assertTrue(hasattr(self.review, "place_id"))
+        self.assertTrue(hasattr(self.review, "user_id"))
+        self.assertTrue(hasattr(self.review, "text"))
 
-    def test_attributes(self):
+    def test_review_to_dict(self):
         """
-        Test attributes
+        Test the to_dict method of the Review instance.
         """
-        self.assertTrue(hasattr(self.dummy_review, "text"))
-        self.assertTrue(hasattr(self.dummy_review, "user_id"))
-        self.assertTrue(hasattr(self.dummy_review, "place_id"))
+        review_dict = self.review.to_dict()
+        self.assertEqual(review_dict["place_id"], "")
+        self.assertEqual(review_dict["user_id"], "")
+        self.assertEqual(review_dict["text"], "")
 
-if __name__ == "__main__":
+    def test_review_from_dict(self):
+        """
+        Test the from_dict method of the Review class.
+        """
+        review_dict = {
+            "id": "123",
+            "created_at": "2023-08-12T21:00:40.677911",
+            "updated_at": "2023-08-12T21:00:40.677911",
+            "__class__": "Review",
+            "place_id": "456",
+            "user_id": "789",
+            "text": "Nice place, great experience!"
+        }
+        new_review = Review.from_dict(review_dict)
+        self.assertIsInstance(new_review, Review)
+        self.assertEqual(new_review.id, "123")
+        self.assertEqual(new_review.created_at.isoformat(),
+                         "2023-08-12T21:00:40.677911")
+        self.assertEqual(new_review.updated_at.isoformat(),
+                         "2023-08-12T21:00:40.677911")
+        self.assertEqual(new_review.place_id, "456")
+        self.assertEqual(new_review.user_id, "789")
+        self.assertEqual(new_review.text, "Nice place, great experience!")
+
+
+if __name__ == '__main__':
+>>>>>>> 5c95d743355312511d33152773dc87dc11b6ccfc
     unittest.main()

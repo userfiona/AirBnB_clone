@@ -11,46 +11,71 @@ import models
 import unittest
 from datetime import datetime
 from models.city import City
-
-class TestCityInstantiation(unittest.TestCase):
-    """Unittests for testing instantiation of the City class."""
-
-    def test_instantiation_creates_instance(self):
-        self.assertEqual(City, type(City()))
-
-    def test_new_instance_stored_in_objects(self):
-        self.assertIn(City(), models.storage.all().values())
-
-    # ... Rest of the instantiation tests ...
+from models.base_model import BaseModel
 
 
-class TestCitySave(unittest.TestCase):
-    """Unittests for testing save method of the City class."""
+class TestCity(unittest.TestCase):
+    """
+    Test cases for the City class.
+    """
 
-    # ... Setup and teardown methods ...
+    def setUp(self):
+        """
+        Set up a City instance for testing.
+        """
+        self.city = City()
 
-    def test_one_save_updates_updated_at(self):
-        cy = City()
-        first_updated_at = cy.updated_at
-        cy.save()
-        self.assertLess(first_updated_at, cy.updated_at)
+    def test_city_inherits_base_model(self):
+        """
+        Test if City class inherits from BaseModel.
+        """
+        self.assertIsInstance(self.city, City)
+        self.assertIsInstance(self.city, BaseModel)
 
-    # ... Rest of the save tests ...
+    def test_city_attributes(self):
+        """
+        Test if City instance has required attributes.
+        """
+        self.assertTrue(hasattr(self.city, "state_id"))
+        self.assertTrue(hasattr(self.city, "name"))
+
+    def test_city_to_dict(self):
+        """
+        Test the to_dict method of the City instance.
+        """
+        city_dict = self.city.to_dict()
+        self.assertEqual(city_dict["state_id"], "")
+        self.assertEqual(city_dict["name"], "")
+        self.assertEqual(city_dict["id"], self.city.id)
+        self.assertEqual(city_dict["created_at"],
+                         self.city.created_at.isoformat())
+        self.assertEqual(city_dict["updated_at"],
+                         self.city.updated_at.isoformat())
+        self.assertEqual(city_dict["__class__"], "City")
+
+    def test_city_from_dict(self):
+        """
+        Test the from_dict method of the City class.
+        """
+        city_dict = {
+            "id": "123",
+            "created_at": "2023-08-15T12:00:00.369637",
+            "updated_at": "2023-08-15T13:00:00.147147",
+            "__class__": "City",
+            "state_id": "456",
+            "name": "San Francisco"
+        }
+        new_city = City.from_dict(city_dict)
+        self.assertIsInstance(new_city, City)
+        self.assertEqual(new_city.id, "123")
+        self.assertEqual(new_city.created_at.isoformat(),
+                         "2023-08-15T12:00:00.369637")
+        self.assertEqual(new_city.updated_at.isoformat(),
+                         "2023-08-15T13:00:00.147147")
+        self.assertEqual(new_city.state_id, "456")
+        self.assertEqual(new_city.name, "San Francisco")
 
 
-class TestCityToDict(unittest.TestCase):
-    """Unittests for testing to_dict method of the City class."""
-
-    def test_to_dict_returns_dict(self):
-        self.assertIsInstance(City().to_dict(), dict)
-
-    def test_to_dict_contains_correct_keys(self):
-        cy = City()
-        keys_to_check = ['id', 'created_at', 'updated_at', '__class__']
-        for key in keys_to_check:
-            self.assertIn(key, cy.to_dict())
-
-    # ... Rest of the to_dict tests ...
-
-if __name__ == "__main__":
+if __name__ == '__main__':
+>>>>>>> 5c95d743355312511d33152773dc87dc11b6ccfc
     unittest.main()

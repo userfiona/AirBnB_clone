@@ -12,45 +12,45 @@ from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
 import json
 
-"""
-class to test the FileStorage model
-"""
-
 
 class TestFileStorage(unittest.TestCase):
+    """
+    class to test the FileStorage model
+    all the methods
+    """
 
-    """
-    setup method to create an instance of the filestorage
-    """
     def setUp(self):
+        """
+        setup method to create an instance of the filestorage
+        """
         self.storage = FileStorage()
 
-    """
-    test all function to see if what it returns is an
-    instance of dict class
-    """
     def test_all(self):
+        """
+        test all function to see if what it returns is an
+        instance of dict class
+        """
         all_objects = self.storage.all()
         self.assertIsInstance(all_objects, dict)
         self.assertEqual(all_objects, self.storage._FileStorage__objects)
 
-    """
-    test new method  to see if it converts the key
-    to (obj.__class__.__name__).(obj.id)
-    """
     def test_new(self):
+        """
+        test new method  to see if it converts the key
+        to (obj.__class__.__name__).(obj.id)
+        """
         obj = BaseModel()
         self.storage.new(obj)
         key = f"{obj.__class__.__name__}.{obj.id}"
         self.assertEqual(self.storage._FileStorage__objects[key], obj)
 
-    """
-    test save method using mock module to simulate
-    real writing to a file
-    covert dict to json object
-    """
     @patch('json.dump')
     def test_save(self, mock_dump):
+        """
+        test save method using mock module to simulate
+        real writing to a file
+        covert dict to json object
+        """
         obj = BaseModel()
         self.storage.new(obj)
         with patch('builtins.open', mock_open()) as m:
@@ -59,28 +59,27 @@ class TestFileStorage(unittest.TestCase):
                                       mode='w', encoding='UTF-8')
             mock_dump.assert_called_once()
 
-    """
-    test reload method using mock module to simulate
-    real reading from a file
-    covert json object to dict
-    """
-    @patch('json.load')
-    def test_reload(self, mock_load):
-        json_data = {
-                "BaseModel.1234": {
-                    "__class__": "BaseModel",
-                    "id": "1234",
-                    "created_at": "2023-08-28T21:07:25.047372",
-                    "updated_at": "2017-09-28T21:07:25.047372"
-                    }
-                }
-        mock_load.return_value = json_data
-        with patch('builtins.open', mock_open(read_data=json.
-                                              dumps(json_data))):
-            self.storage.reload()
-            # self.assertEqual(len(self.storage._FileStorage__objects), 1)
-            """self.assertIsInstance(self.storage._FileStorage__objects
-            ["BaseModel.1234"], BaseModel)"""
+    def test_reload(self):
+        """
+        test reload method
+        for an existing file
+        """
+        # Create an instance and save it
+        instance = BaseModel()
+        instance.save()
+
+        # Verify that the instance is stored in __objects
+        self.assertIn(instance.__class__.__name__ + "." +
+                      instance.id, self.storage.all())
+
+        # Manually modify the file to remove the instance
+        self.storage.__objects = {}
+        self.storage.save()
+
+        # Reload the storage and verify that the instance is reloaded
+        self.storage.reload()
+        self.assertIn(instance.__class__.__name__ + "."
+                      + instance.id, self.storage.all())
 
 
 if __name__ == '__main__':

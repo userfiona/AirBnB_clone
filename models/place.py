@@ -1,13 +1,14 @@
 #!/usr/bin/python3
-"""Defines the Place class."""
-from models.base_model import BaseModel
 
+"""
+get BaseModel. Place class inherits from the BaseModel
+"""
 from models.base_model import BaseModel
 
 
 class Place(BaseModel):
-    """Represent a place.
-
+    """
+    Represent a place.
     Attributes:
         city_id (str): The City id.
         user_id (str): The User id.
@@ -21,7 +22,6 @@ class Place(BaseModel):
         longitude (float): The longitude of the place.
         amenity_ids (list): A list of Amenity ids.
     """
-
     city_id = ""
     user_id = ""
     name = ""
@@ -35,11 +35,15 @@ class Place(BaseModel):
     amenity_ids = []
 
     def __init__(self, *args, **kwargs):
-        """Initialize Place instance."""
+        """
+        Initialize Place instance
+        """
         super().__init__(*args, **kwargs)
 
     def to_dict(self):
-        """Return dictionary representation of Place."""
+        """
+        Return dictionary representation of Place
+        """
         place_dict = super().to_dict()
         place_dict['city_id'] = self.city_id
         place_dict['user_id'] = self.user_id
@@ -56,6 +60,7 @@ class Place(BaseModel):
 
     @classmethod
     def from_dict(cls, data_dict):
-        """Create Place object from dictionary."""
+        """
+        Create Place object from dictionary
+        """
         return cls(**data_dict)
-

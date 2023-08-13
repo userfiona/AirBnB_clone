@@ -11,56 +11,55 @@ from models.base_model import BaseModel
 import os
 import unittest
 
-"""
-TestBaseModel class
-"""
-
 
 class TestBaseModel(unittest.TestCase):
+    """
+    TestBaseModel class
+    """
 
-    """ set up function"""
     @classmethod
     def setUpClass(cls):
+        """ set up function"""
         cls.my_model = BaseModel()
         cls.my_model_2 = BaseModel()
         cls.my_model.name = "My First Model"
         cls.my_model.my_number = 89
 
-    """ test if id is assigned """
     def test_id(self):
+        """ test if id is assigned """
         self.assertTrue(TestBaseModel.my_model.id)
 
-    """test id is a string"""
     def test_id_type(self):
+        """test id is a string"""
         self.assertTrue(type(TestBaseModel.my_model.id) == str)
 
-    """ test id is uniq"""
     def test_id_uniq(self):
+        """ test id is uniq"""
         self.assertTrue(TestBaseModel.my_model.id !=
                         TestBaseModel.my_model_2.id)
 
-    """ test created at is assigned """
     def test_created_at(self):
+        """ test created at is assigned """
         self.assertTrue(TestBaseModel.my_model.created_at)
 
-    """
-    test created date is datetime instance
-    """
     def test_created_at_is_datetime(self):
+        """
+        test created date is datetime instance
+        """
         self.assertIsInstance(TestBaseModel.my_model.created_at, datetime)
 
-    """ test updated_at at is assigned """
     def test_updated_at(self):
+        """ test updated_at at is assigned """
         self.assertTrue(TestBaseModel.my_model.updated_at)
 
-    """
-    test updated date is datetime instance
-    """
     def test_updated_at_is_datetime(self):
+        """
+        test updated date is datetime instance
+        """
         self.assertIsInstance(TestBaseModel.my_model.updated_at, datetime)
 
-    """test __str__ of an object"""
     def test_str(self):
+        """test __str__ of an object"""
         exOutPut = "[{}] ({}) {}".format(TestBaseModel.my_model.__class__
                                          .__name__,
                                          TestBaseModel.my_model.id,
@@ -68,22 +67,22 @@ class TestBaseModel(unittest.TestCase):
         output = str(TestBaseModel.my_model)
         self.assertEqual(output, exOutPut)
 
-    """
-    test save method check if the updated_at value changes
-    """
     def test_save(self):
+        """
+        test save method check if the updated_at value changes
+        """
         firstUpdatedValue = TestBaseModel.my_model.updated_at
         TestBaseModel.my_model.save()
         secondUpdatedValue = TestBaseModel.my_model.updated_at
         self.assertTrue(type(TestBaseModel.my_model.id) == str)
         self.assertTrue(firstUpdatedValue != secondUpdatedValue)
 
-    """
-    test to_dict method
-    confirm __class__ is added to the dict
-    confirm created_at and updated_at are in isoformat
-    """
     def test_to_dict_method(self):
+        """
+        test to_dict method
+        confirm __class__ is added to the dict
+        confirm created_at and updated_at are in isoformat
+        """
         obj_dict = TestBaseModel.my_model.to_dict()
         self.assertEqual(obj_dict['__class__'], 'BaseModel')
         self.assertEqual(obj_dict['id'], TestBaseModel.my_model.id)
@@ -92,10 +91,10 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(obj_dict['updated_at'],
                          TestBaseModel.my_model.updated_at.isoformat())
 
-    """
-    Test creating BaseModel from dictionary
-    """
     def test_create_BaseModel_Dict(self):
+        """
+        Test creating BaseModel from dictionary
+        """
         my_dict = TestBaseModel.my_model.to_dict()
         my_model = BaseModel(my_dict)
         self.assertTrue(my_model.id)
@@ -104,17 +103,17 @@ class TestBaseModel(unittest.TestCase):
         self.assertTrue(my_model.id !=
                         TestBaseModel.my_model_2.id)
 
-    """
-    Set up teardown method
-    """
     def tearDown(self):
+        """
+        Set up teardown method
+        """
         if os.path.exists("file.json"):
             os.remove("file.json")
 
 
-"""
-if test is executed it runs as main
-but if it is imported it does not execute
-"""
 if __name__ == "__main__":
+    """
+    if test is executed it runs as main
+    but if it is imported it does not execute
+    """
     unittest.main()

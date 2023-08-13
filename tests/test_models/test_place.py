@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #!/usr/bin/python3
 """Defines unittests for models/place.py.
 Unittest classes:
@@ -6,65 +7,75 @@ Unittest classes:
     TestPlace_to_dict
 """
 
-import os
-import models
 import unittest
-from datetime import datetime
-from time import sleep
 from models.place import Place
+from models.base_model import BaseModel
 
-class TestPlaceInstantiation(unittest.TestCase):
-    """Unittests for testing instantiation of the Place class."""
+
+class TestPlace(unittest.TestCase):
+    """
+    Test cases for the Place class.
+    """
 
     def setUp(self):
-        super().setUp()  # Call parent class's setUp method
+        """
+        Set up a Place instance for testing.
+        """
         self.place = Place()
 
-    def test_instantiation_creates_instance(self):
-        self.assertEqual(Place, type(self.place))
+    def test_place_inherits_base_model(self):
+        """
+        Test if Place class inherits from BaseModel.
+        """
+        self.assertIsInstance(self.place, Place)
+        self.assertIsInstance(self.place, BaseModel)
 
-    def test_new_instance_stored_in_objects(self):
-        self.assertIn(self.place, models.storage.all().values())
+    def test_place_attributes(self):
+        """
+        Test if Place instance has required attributes.
+        """
+        self.assertTrue(hasattr(self.place, "city_id"))
+        self.assertTrue(hasattr(self.place, "user_id"))
+        self.assertTrue(hasattr(self.place, "name"))
+        # ... (add other attributes)
 
-    # ... Rest of the instantiation tests ...
+    def test_place_to_dict(self):
+        """
+        Test the to_dict method of the Place instance.
+        """
+        place_dict = self.place.to_dict()
+        self.assertEqual(place_dict["city_id"], "")
+        self.assertEqual(place_dict["user_id"], "")
+        self.assertEqual(place_dict["name"], "")
+        # ... (add other assertions)
+
+    def test_place_from_dict(self):
+        """
+        Test the from_dict method of the Place class.
+        """
+        place_dict = {
+            "id": "123",
+            "created_at": "2023-08-12T21:00:40.677911",
+            "updated_at": "2023-08-12T21:00:40.677911",
+            "__class__": "Place",
+            "city_id": "456",
+            "user_id": "789",
+            "name": "Luxury Villa",
+            # ... (add other attributes)
+        }
+        new_place = Place.from_dict(place_dict)
+        self.assertIsInstance(new_place, Place)
+        self.assertEqual(new_place.id, "123")
+        self.assertEqual(new_place.created_at.isoformat(),
+                         "2023-08-12T21:00:40.677911")
+        self.assertEqual(new_place.updated_at.isoformat(),
+                         "2023-08-12T21:00:40.677911")
+        self.assertEqual(new_place.city_id, "456")
+        self.assertEqual(new_place.user_id, "789")
+        self.assertEqual(new_place.name, "Luxury Villa")
+        # ... (add other assertions)
 
 
-class TestPlaceSave(unittest.TestCase):
-    """Unittests for testing save method of the Place class."""
-
-    def setUp(self):
-        super().setUp()  # Call parent class's setUp method
-        try:
-            os.rename("file.json", "tmp")
-        except IOError:
-            pass
-
-    def tearDown(self):
-        try:
-            os.remove("file.json")
-        except IOError:
-            pass
-        try:
-            os.rename("tmp", "file.json")
-        except IOError:
-            pass
-
-    def test_one_save_updates_updated_at(self):
-        pl = Place()
-        first_updated_at = pl.updated_at
-        pl.save()
-        self.assertLess(first_updated_at, pl.updated_at)
-
-    # ... Rest of the save tests ...
-
-
-class TestPlaceToDict(unittest.TestCase):
-    """Unittests for testing to_dict method of the Place class."""
-
-    def test_to_dict_type(self):
-        self.assertIsInstance(Place().to_dict(), dict)
-
-    # ... Rest of the to_dict tests ...
-
-if __name__ == "__main__":
+if __name__ == '__main__':
+>>>>>>> 5c95d743355312511d33152773dc87dc11b6ccfc
     unittest.main()

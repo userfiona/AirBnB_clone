@@ -2,57 +2,69 @@
 
 """
 get json model
+get path module to check for files existance
+get all the module super class BaseModel
+get the rest of the module class. Amenity,City,
+Place,Review,State,User
 """
 
 import json
+from models.amenity import Amenity
+from models.base_model import BaseModel
+from models.city import City
+from models.place import Place
+from models.review import Review
+from models.state import State
+from models.user import User
 from os import path
-
-"""
-file storage class
-"""
 
 
 class FileStorage():
-
     """
-    initiate the class
+    file storage class
+    adds persistance storage feature to the project
+    saves data using json format
     """
     __file_path = 'file.json'
     __objects = {}
 
-    """
-    returns the dictionary __objects
-    """
     def all(self):
+        """
+        gets the __objects and
+        returns the dictionary __objects
+        """
         return self.__objects
 
-    """
-    sets in __objects the obj with
-    key <obj class name>.id
-    """
     def new(self, obj):
+        """
+        sets in __objects the obj with
+        key <obj class name>.id
+        """
         key = f"{obj.__class__.__name__}.{obj.id}"
         self.__objects[key] = obj
 
-    """
-    Serializes __objects to the
-    JSON file (path: __file_path)
-    """
     def save(self):
+        """
+        Serializes __objects to the
+        JSON file (path: __file_path)
+        """
         my_dict = {}
         """Loop and convert object to dict"""
         for key, obj in self.__objects.items():
             my_dict[key] = obj.to_dict()
-        """ open file in file path __file_path and save the dict """
+        """
+        open file in file path __file_path
+        and save the dict
+        """
         with open(self.__file_path, mode='w', encoding='UTF-8') as my_file:
             json.dump(my_dict, my_file)
 
-    """
-    Deserializes the JSON file to
-    __objects only if the JSON file (__file_path) existis
-    Otherwise do nothing.
-    """
     def reload(self):
+        """
+        Deserializes the JSON file to
+        __objects only if the JSON file (__file_path) existis
+        Otherwise do nothing.
+        """
         if path.exists(self.__file_path):
             """ open the file and read the data """
             with open(self.__file_path, mode='r', encoding='UTF-8') as my_file:
