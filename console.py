@@ -70,7 +70,7 @@ class HBNBCommand(cmd.Cmd):
         prints: ** class doesn't exist **
         """
         className = self.parseline(line)[0]
-        if not className:
+        if not className or className is None:
             print("** class name missing **")
             return
         elif className not in HBNBCommand.classes:

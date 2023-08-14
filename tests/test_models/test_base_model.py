@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+
 """
 get datetime module from datetime
 get the unittest module
@@ -6,6 +7,7 @@ get os use os.path module to use to check if file exist
 in teardown method to remove it
 get the BaseModel module
 """
+
 from datetime import datetime
 from models.base_model import BaseModel
 import os

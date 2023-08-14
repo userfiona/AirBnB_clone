@@ -1,6 +1,8 @@
-<<<<<<< HEAD
 #!/usr/bin/python3
-"""Defines unittests for models/user.py."""
+
+"""
+Defines unittests for user
+"""
 
 import unittest
 from models.state import State
@@ -60,5 +62,4 @@ class TestState(unittest.TestCase):
 
 
 if __name__ == '__main__':
->>>>>>> 5c95d743355312511d33152773dc87dc11b6ccfc
     unittest.main()

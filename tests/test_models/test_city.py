@@ -1,9 +1,11 @@
 #!/usr/bin/python3
-"""Defines unittests for models/city.py.
+
+"""
+Defines unittests for models/city.py.
 Unittest classes:
-    TestCity_instantiation
-    TestCity_save
-    TestCity_to_dict
+TestCity_instantiation
+TestCity_save
+TestCity_to_dict
 """
 
 import os
@@ -77,5 +79,4 @@ class TestCity(unittest.TestCase):
 
 
 if __name__ == '__main__':
->>>>>>> 5c95d743355312511d33152773dc87dc11b6ccfc
     unittest.main()
