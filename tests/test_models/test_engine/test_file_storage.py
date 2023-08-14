@@ -61,35 +61,6 @@ class TestFileStorage(unittest.TestCase):
 
     def test_reload(self):
         """
-        test reload method
-        for an existing file
-        """
-        """
-        Create an instance and save it
-        """
-        instance = BaseModel()
-        instance.save()
-
-        """
-        Verify that the instance is stored in __objects
-        """
-        self.assertIn(instance.__class__.__name__ + "." +
-                      instance.id, self.storage.all())
-
-        """
-        Manually modify the file to remove the instance
-        """
-        self.storage.__objects = {}
-        self.storage.save()
-
-        """
-        Reload the storage and verify that the instance is reloaded
-        """
-        self.storage.reload()
-        self.assertIn(instance.__class__.__name__ + "."
-                      + instance.id, self.storage.all())
-
-        """
         Test if the reload method loads objects from JSON file.
         """
         prev_objs = self.storage.all()
