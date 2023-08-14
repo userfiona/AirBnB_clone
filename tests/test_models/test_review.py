@@ -1,13 +1,16 @@
 #!/usr/bin/python3
+
 """
     test reviews
 """
+
 import unittest
 from models.base_model import BaseModel
 from models.review import Review
-from models.place import Place
-from models.user import User
 
+
+class TestReview(unittest.TestCase):
+    """
     Test cases for the Review class.
     """
 
@@ -67,5 +70,4 @@ from models.user import User
 
 
 if __name__ == '__main__':
->>>>>>> 5c95d743355312511d33152773dc87dc11b6ccfc
     unittest.main()

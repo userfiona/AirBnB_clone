@@ -1,6 +1,7 @@
-<<<<<<< HEAD
 #!/usr/bin/python3
-"""Defines unittests for models/place.py.
+
+"""
+Defines unittests for models/place.py.
 Unittest classes:
     TestPlace_instantiation
     TestPlace_save
@@ -77,5 +78,4 @@ class TestPlace(unittest.TestCase):
 
 
 if __name__ == '__main__':
->>>>>>> 5c95d743355312511d33152773dc87dc11b6ccfc
     unittest.main()

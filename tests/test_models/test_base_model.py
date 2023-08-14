@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+
 """
 get datetime module from datetime
 get the unittest module
@@ -6,10 +7,12 @@ get os use os.path module to use to check if file exist
 in teardown method to remove it
 get the BaseModel module
 """
+
 from datetime import datetime
 from models.base_model import BaseModel
 import os
 import unittest
+import json
 
 
 class TestBaseModel(unittest.TestCase):
@@ -76,6 +79,25 @@ class TestBaseModel(unittest.TestCase):
         secondUpdatedValue = TestBaseModel.my_model.updated_at
         self.assertTrue(type(TestBaseModel.my_model.id) == str)
         self.assertTrue(firstUpdatedValue != secondUpdatedValue)
+        """
+        Test if the save method updates the JSON file.
+        """
+        with open('file.json', 'r') as file:
+            obj_dict = json.load(file)
+        prev_updated_at = self.my_model.updated_at.isoformat()
+        self.my_model.save()
+        with open('file.json', 'r') as file:
+            updated_obj_dict = json.load(file)
+        self.assertNotEqual(prev_updated_at,
+                            updated_obj_dict['BaseModel.' +
+                                             self.my_model.id]['updated_at'])
+
+        """
+        Test if the save method updates the updated_at attribute.
+        """
+        prev_updated_at = self.my_model.updated_at
+        self.my_model.save()
+        self.assertNotEqual(prev_updated_at, self.my_model.updated_at)
 
     def test_to_dict_method(self):
         """

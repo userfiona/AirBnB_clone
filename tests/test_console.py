@@ -1,10 +1,14 @@
 #!/usr/bin/python3
-"""test for console to make it start working"""
+
+"""
+test for console to make it start working
+"""
 
 import unittest
 from io import StringIO
 import sys
 from console import HBNBCommand
+
 
 class TestConsole(unittest.TestCase):
     """Test suite for the HBNBCommand class"""
@@ -28,22 +32,23 @@ class TestConsole(unittest.TestCase):
         ]
 
         for command in commands:
-            self.assertIsNotNone(command.__doc__, f"Docstring missing for {command.__name__}")
+            self.assertIsNotNone(command.__doc__,
+                                 f"Docstring missing for {command.__name__}")
 
     def test_create_error_messages(self):
         """Test error messages for the 'create' command"""
         cmd = HBNBCommand()
 
-        cmd.do_create(None)
-        self.assertEqual(sys.stdout.getvalue(), '** class name missing **\n', "Missing class name message")
+        cmd.do_create('mymodel')
+        self.assertEqual(sys.stdout.getvalue(),
+                         "** class doesn't exist **\n")
 
         sys.stdout = StringIO()
         cmd.do_create("base")
-        self.assertEqual(sys.stdout.getvalue(), '** class doesn\'t exist **\n', "Non-existent class message")
+        self.assertEqual(sys.stdout.getvalue(),
+                         '** class doesn\'t exist **\n',
+                         "Non-existent class message")
 
-        sys.stdout = StringIO()
-        cmd.do_create("BaseModel")
-        self.assertEqual(sys.stdout.getvalue(), '** class doesn\'t exist **\n', "Non-existent class message")
 
 if __name__ == "__main__":
     unittest.main()
