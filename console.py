@@ -233,6 +233,21 @@ class HBNBCommand(cmd.Cmd):
                                   in instances.items() if value in key}
             return [str(instance) for instance in filtered_instances.values()]
 
+    def cleanWord(self, word):
+        """
+        check if word contains " or , and remove them
+        """
+        if word and (',' in word or '"' in word):
+            newWord = ''
+            for char in word:
+                if char == '"' or char == ',':
+                    newWord = newWord + ''
+                else:
+                    newWord = newWord + char
+            return newWord
+        else:
+            return word
+
     def default(self, line):
         """
         When the command prefix is not recognized, this method
@@ -253,11 +268,18 @@ class HBNBCommand(cmd.Cmd):
                 elif method_name == 'count':
                     print(len(self.get_objects(class_name)))
                 elif method_name == 'show':
-                    class_id = splitted[2][1:-1]
-                    self.do_show(class_name + ' ' + class_id)
+                    instance_id = splitted[2][1:-1]
+                    self.do_show(class_name + ' ' + instance_id)
                 elif method_name == 'destroy':
-                    class_id = splitted[2][1:-1]
-                    self.do_destroy(class_name + ' ' + class_id)
+                    instance_id = splitted[2][1:-1]
+                    self.do_destroy(class_name + ' ' + instance_id)
+                elif method_name == 'update':
+                    instance_data = splitted[2].split(' ')
+                    instance_id = self.cleanWord(instance_data[0])
+                    attrName = self.cleanWord(instance_data[1])
+                    attrValue = self.cleanWord(instance_data[2])
+                    self.do_update(class_name + ' ' + instance_id
+                                   + ' ' + attrName + ' ' + attrValue)
 
 
 if __name__ == '__main__':
