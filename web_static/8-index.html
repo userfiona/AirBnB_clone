@@ -1,77 +1,386 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="shortcut icon" href="images/icon.png" type="image/x-icon" />
-	<link rel="stylesheet" href="styles/3-footer.css">
-	<link rel="stylesheet" href="styles/3-header.css">
+	<meta charset="utf-8">
+	<title>AirBnB clone - Web static</title>
 	<link rel="stylesheet" href="styles/4-common.css">
+	<link rel="stylesheet" href="styles/3-header.css">
+	<link rel="stylesheet" href="styles/3-footer.css">
 	<link rel="stylesheet" href="styles/6-filters.css">
 	<link rel="stylesheet" href="styles/8-places.css">
-	<title>AirBnB Clone</title>
+	<link rel="icon" href="images/icon.png">
 </head>
+
 <body>
-	<header></header>
+	<header>
+		<div class="logo"></div>
+	</header>
 	<div class="container">
-		<section class="filter">
+		<section class="filters">
 			<div class="locations">
-				<h3>States</h3>
-				<h4>California, New York...</h4>
+				<h3> States</h3>
+				<h4>Carlifonia, Arizona</h4>
 				<ul class="popover">
 					<li>
-						<h2>California</h2>
-						<ul class="InList">
-							<li>Black tea</li>
-							<li>Green tea</li>
+						<h2>Arizona</h2>
+						<ul>
+							<li>page 1</li>
+							<li> page 2</li>
 						</ul>
-
 					</li>
-					<li><h2>New York</h2>
-						<ul class="InList">
-							<li>Blavk tea</li>
-							<li>Blavk tea</li>
-							<li>Blavk tea</li>
-							<li>Blavk tea</li>
-						</ul></li>	
+					<li>
+						<h2>Carlifonia</h2>
+						<ul>
+							<li>page 1</li>
+							<li> page 2</li>
+						</ul>
+					</li>
 				</ul>
 			</div>
 			<div class="amenities">
-				<h3>Amenities</h3>
-				<h4>Bathroom, living room... </h4>
+				<h3> Amenities</h3>
+				<h4>Internet, Kitchen...</h4>
 				<ul class="popover">
-					<li>Shower</li>
-					<li>WI-FI</li>
-					<li>Kitchen</li>	
-					<li>Bed</li>
+					<li>Internet</li>
+					<li>Tv</li>
+					<li>Kitchen</li>
+					<li>Iron</li>
 				</ul>
 			</div>
-			<button>Search</button>	
+			<div class='buttondiv'>
+				<button>search</button>
+			</div>
 		</section>
 		<section class="places">
 			<h1>Places</h1>
-			<article>
-				<h2>My Home</h2>
-				<div class="price_by_night">$85</div>
-				<div class="information">
-					<div class="max_guest"><span>2 guests</span></div>
-					<div class="number_rooms"><span>1 Bedroom</span> </div>
-					<div class="number_bathrooms"><span>1 Bathroom</span> </div>
-				</div>
-				<div class="user"><span>Owner: </span> Jack Smith</div>
-				<div class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-				Culpa facilis maiores ipsam repellendus nam sed maxime expedita possimus.</div>		</article>
-			<article>
-				<h2>Tiny House</h2>
-			</article>
-			<article>
-				<h2>A suite</h2>
-			</article>
+			<ul>
+				<li>
+					<article>
+						<h2>Home</h2>
+						<div class="price_by_night">
+							<span>$80</span>
+						</div>
+						<div class="information">
+							<div class="max_guest">
+								<span>4 guest</span>
+							</div>
+							<div class="number_rooms">
+								<span>2 bedrooms</span>
+							</div>
+							<div class="number_bathrooms">
+								<span>1 bathroom</span>
+							</div>
+						</div>
+						<div class="user">
+							<span><strong>Owner</strong>:Joel Muhoho</span>
+						</div>
+						<div class="description">
+							<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sequi tempore, ea dolorem
+								repellendus eos neque ab ipsa quam accusamus ducimus voluptate aut inventore expedita
+								voluptatibus reprehenderit iure quia, et ipsam.
+							</p>
+						</div>
+					</article>
+				</li>
+				<li>
+					<article>
+						<h2>Home</h2>
+						<div class="price_by_night">
+							<span>$80</span>
+						</div>
+						<div class="information">
+							<div class="max_guest">
+								<span>4 guest</span>
+							</div>
+							<div class="number_rooms">
+								<span>2 bedrooms</span>
+							</div>
+							<div class="number_bathrooms">
+								<span>1 bathroom</span>
+							</div>
+						</div>
+						<div class="user">
+							<span><strong>Owner</strong>:Joel Muhoho</span>
+
+						</div>
+						<div class="description">
+							<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odit aperiam laudantium in
+								voluptates exercitationem reprehenderit vel deserunt iste aliquam hic voluptas dicta,
+								quasi molestiae possimus ad suscipit officia deleniti! Magnam.</p>
+						</div>
+					</article>
+				</li>
+				<li>
+					<article>
+						<h2>Home</h2>
+						<div class="price_by_night">
+							<span>$80</span>
+						</div>
+						<div class="information">
+							<div class="max_guest">
+								<span>4 guest</span>
+							</div>
+							<div class="number_rooms">
+								<span>2 bedrooms</span>
+							</div>
+							<div class="number_bathrooms">
+								<span>1 bathroom</span>
+							</div>
+						</div>
+						<div class="user">
+							<span><strong>Owner</strong>:Joel Muhoho</span>
+						</div>
+						<div class="description">
+							<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis quasi perspiciatis
+								harum iste aliquam cupiditate in esse molestias rerum, soluta tenetur officiis minus.
+								Eius incidunt laboriosam, libero magni obcaecati inventore.</p>
+						</div>
+					</article>
+				</li>
+
+			</ul>
+			<!DOCTYPE html>
+			<html lang="en">
 			
+			<head>
+				<meta charset="utf-8">
+				<title>AirBnB clone - Web static</title>
+				<link rel="stylesheet" href="styles/4-common.css">
+				<link rel="stylesheet" href="styles/3-header.css">
+				<link rel="stylesheet" href="styles/3-footer.css">
+				<link rel="stylesheet" href="styles/6-filters.css">
+				<link rel="stylesheet" href="styles/8-places.css">
+				<link rel="icon" href="images/icon.png">
+			</head>
+			
+			<body>
+				<header>
+					<div class="logo"></div>
+				</header>
+				<div class="container">
+					<section class="filters">
+						<div class="locations">
+							<h3> States</h3>
+							<h4>Carlifonia, Arizona</h4>
+							<ul class="popover">
+								<li>
+									<h2>Arizona</h2>
+									<ul>
+										<li>page 1</li>
+										<li> page 2</li>
+									</ul>
+								</li>
+								<li>
+									<h2>Carlifonia</h2>
+									<ul>
+										<li>page 1</li>
+										<li> page 2</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+						<div class="amenities">
+							<h3> Amenities</h3>
+							<h4>Internet, Kitchen...</h4>
+							<ul class="popover">
+								<li>Internet</li>
+								<li>Tv</li>
+								<li>Kitchen</li>
+								<li>Iron</li>
+							</ul>
+						</div>
+						<div class='buttondiv'>
+							<button>search</button>
+						</div>
+					</section>
+					<section class="places">
+						<h1>Places</h1>
+						<ul>
+							<li>
+								<article>
+									<h2>Home</h2>
+									<div class="price_by_night">
+										<span>$80</span>
+									</div>
+									<div class="information">
+										<div class="max_guest">
+											<span>4 guest</span>
+										</div>
+										<div class="number_rooms">
+											<span>2 bedrooms</span>
+										</div>
+										<div class="number_bathrooms">
+											<span>1 bathroom</span>
+										</div>
+									</div>
+									<div class="user">
+										<span><strong>Owner</strong>:Joel Muhoho</span>
+									</div>
+									<div class="description">
+										<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sequi tempore, ea dolorem
+											repellendus eos neque ab ipsa quam accusamus ducimus voluptate aut inventore expedita
+											voluptatibus reprehenderit iure quia, et ipsam.
+										</p>
+									</div>
+								</article>
+							</li>
+							<li>
+								<article>
+									<h2>Home</h2>
+									<div class="price_by_night">
+										<span>$80</span>
+									</div>
+									<div class="information">
+										<div class="max_guest">
+											<span>4 guest</span>
+										</div>
+										<div class="number_rooms">
+											<span>2 bedrooms</span>
+										</div>
+										<div class="number_bathrooms">
+											<span>1 bathroom</span>
+										</div>
+									</div>
+									<div class="user">
+										<span><strong>Owner</strong>:Joel Muhoho</span>
+			
+									</div>
+									<div class="description">
+										<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odit aperiam laudantium in
+											voluptates exercitationem reprehenderit vel deserunt iste aliquam hic voluptas dicta,
+											quasi molestiae possimus ad suscipit officia deleniti! Magnam.</p>
+									</div>
+								</article>
+							</li>
+							<li>
+								<article>
+									<h2>Home</h2>
+									<div class="price_by_night">
+										<span>$80</span>
+									</div>
+									<div class="information">
+										<div class="max_guest">
+											<span>4 guest</span>
+										</div>
+										<div class="number_rooms">
+											<span>2 bedrooms</span>
+										</div>
+										<div class="number_bathrooms">
+											<span>1 bathroom</span>
+										</div>
+									</div>
+									<div class="user">
+										<span><strong>Owner</strong>:Joel Muhoho</span>
+									</div>
+									<div class="description">
+										<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis quasi perspiciatis
+											harum iste aliquam cupiditate in esse molestias rerum, soluta tenetur officiis minus.
+											Eius incidunt laboriosam, libero magni obcaecati inventore.</p>
+									</div>
+								</article>
+							</li>
+			
+						</ul>
+			
+						<!DOCTYPE html>
+						<html lang="en">
+						
+						<head>
+							<meta charset="utf-8">
+							<title>AirBnB clone - Web static</title>
+							<link rel="stylesheet" href="styles/4-common.css">
+							<link rel="stylesheet" href="styles/3-header.css">
+							<link rel="stylesheet" href="styles/3-footer.css">
+							<link rel="stylesheet" href="styles/6-filters.css">
+							<link rel="stylesheet" href="styles/7-places.css">
+							<link rel="icon" href="images/icon.png">
+						</head>
+						
+						<body>
+							<header>
+								<div class="logo"></div>
+							</header>
+							<div class="container">
+								<section class="filters">
+									<div class="locations">
+										<h3> States</h3>
+										<h4>Carlifonia, Arizona</h4>
+										<ul class="popover">
+											<li>
+												<h2>Arizona</h2>
+												<ul>
+													<li>page 1</li>
+													<li> page 2</li>
+												</ul>
+											</li>
+											<li>
+												<h2>Carlifonia</h2>
+												<ul>
+													<li>page 1</li>
+													<li> page 2</li>
+												</ul>
+											</li>
+										</ul>
+									</div>
+									<div class="amenities">
+										<h3> Amenities</h3>
+										<h4>Internet, Kitchen...</h4>
+										<ul class="popover">
+											<li>Internet</li>
+											<li>Tv</li>
+											<li>Kitchen</li>
+											<li>Iron</li>
+										</ul>
+									</div>
+									<div class='buttondiv'>
+										<button>search</button>
+									</div>
+								</section>
+								<section class="places">
+									<h1>Places</h1>
+									<ul>
+										<li>
+											<article>
+												<h2>Home</h2>
+											</article>
+										</li>
+										<li>
+											<article>
+												<h2>Home</h2>
+											</article>
+										</li>
+										<li>
+											<article>
+												<h2>Home</h2>
+											</article>
+										</li>
+						
+									</ul>
+						
+						
+								</section>
+							</div>
+							<footer>
+								<p>Best School</p>
+							</footer>
+						</body>
+						
+						</html>
+					</section>
+				</div>
+				<footer>
+					<p>Best School</p>
+				</footer>
+			</body>
+			
+			</html>
+
 		</section>
 	</div>
 	<footer>
-		Holberton School
+		<p>Best School</p>
 	</footer>
 </body>
+
 </html>
